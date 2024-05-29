@@ -13,7 +13,8 @@ namespace Improved_ApiQuiz
         
         public Menu()
         {
-
+            _menuitems = new string[] { "Option1", "Option2", "Option3" };
+            _selectedIndex = 0;
         }
 
         public Menu(string[] menuitems, int selectedIndex)
@@ -26,33 +27,18 @@ namespace Improved_ApiQuiz
            
         public string[] Menuitems { get { return _menuitems; } }
 
-        public string GetDifficultyMenu()
+        public void SetMenuItems(string[] menuItems)
         {
-            string[] _menuitems = { "5", "10", "15", "20", "25", "30" };
-            int _selectedIndex = 0;
-
-            ConsoleKey key;
-
-            Console.CursorVisible = false;
-
-            Console.SetCursorPosition(0, 0);
-            Console.Write("Difficulty: ");
-
-            DisplayMenu(_menuitems, _selectedIndex);
-
-            string difficulty = Menuitems[SelectedIndex];
-
-            Console.Clear();
-
-            return difficulty;
-
-            return SelectedIndex.ToString();
-
+            _menuitems = menuItems;
+            _selectedIndex = 1; 
         }
 
-        public void DisplayMenu(string[] _menuitems, int _selectedIndex)
+
+        public string DisplayMenu()
         {
-            Console.SetCursorPosition(0, 1);
+            Console.Clear();
+            
+
             for (int i = 0; i < _menuitems.Length; i++)
             {
                 if (i == _selectedIndex)
@@ -65,26 +51,37 @@ namespace Improved_ApiQuiz
                 }
                 Console.WriteLine(_menuitems[i]);
             }
-        }
-        public void UpdateMenu()
-        {
+
             ConsoleKey key;
             do
             {
                 key = Console.ReadKey(true).Key;
 
+                int previousIndex = _selectedIndex;
+
                 if (key == ConsoleKey.UpArrow)
                 {
-                    _selectedIndex = (_selectedIndex == 0) ? _menuitems.Length - 1 : _selectedIndex - 1;
+                    _selectedIndex = (_selectedIndex == 1) ? _menuitems.Length - 1 : _selectedIndex - 1;
                 }
                 else if (key == ConsoleKey.DownArrow)
                 {
-                    _selectedIndex = (_selectedIndex == _menuitems.Length - 1) ? 0 : _selectedIndex + 1;
+                    _selectedIndex = (_selectedIndex == _menuitems.Length - 1) ? 1 : _selectedIndex + 1;
                 }
 
-                // Redraw the menu with the new selected index
-                DisplayMenu(_menuitems, _selectedIndex);
+                if (_selectedIndex != previousIndex)
+                {
+
+                    Console.SetCursorPosition(0, previousIndex);
+                    Console.Write("   " + _menuitems[previousIndex]);
+
+
+                    Console.SetCursorPosition(0, _selectedIndex);
+                    Console.Write("-> " + _menuitems[_selectedIndex]);
+                }
+
             } while (key != ConsoleKey.Enter);
+
+            return _menuitems[_selectedIndex];
         }
     }
 }

@@ -42,7 +42,9 @@ namespace Improved_ApiQuiz
 
         {
 
-            Console.WriteLine($"Category: [{category}] Antal Questions: [{limit}] Difficulty: [{difficulty}]");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"Category: [{category}] Antal Questions: [{limit}] Difficulty: [{difficulty}]\n");
+            Console.ResetColor();
 
             // Convert the response to a list of Format objects by deserializing the JSON-response
 
