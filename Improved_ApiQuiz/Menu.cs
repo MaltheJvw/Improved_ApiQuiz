@@ -34,7 +34,7 @@ namespace Improved_ApiQuiz
         }
 
 
-        public string DisplayMenu()
+        public int DisplayMenu()
         {
             Console.Clear();
             
@@ -81,7 +81,7 @@ namespace Improved_ApiQuiz
 
             } while (key != ConsoleKey.Enter);
 
-            return _menuitems[_selectedIndex];
+            return _selectedIndex;
         }
     }
 }

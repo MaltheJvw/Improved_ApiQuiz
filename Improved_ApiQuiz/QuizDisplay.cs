@@ -40,21 +40,21 @@ namespace Improved_ApiQuiz
 
             foreach (var question in api)
             {
-                DisplayQuestion(question);
-                string userAnswer = DisplayQuestion(question);
+                
+                string selectedItem = DisplayQuestion(question);
 
-                bool isCorrect = CheckAnswer(question, userAnswer);
+                bool isCorrect = CheckAnswer(question, selectedItem);
                 if (isCorrect)
                 {
                     Console.WriteLine("Correct!");
+                    Console.ReadKey();
                 }
                 else
                 {
                     Console.WriteLine("Incorrect.");
+                    Console.ReadKey();
+
                 }
-
-                Console.WriteLine();
-
             }
         }
         private string DisplayQuestion(Format question)
@@ -72,21 +72,18 @@ namespace Improved_ApiQuiz
                 {
                     questionIndex++;
                     customMenuItems[questionIndex] = answer.Value;
-                    keyIndex++;
                     keyMenuItem[keyIndex] = answer.Key;
+                    keyIndex++;
                 }
             }
-            
-
             menu.SetMenuItems(customMenuItems);
-            string Choice = menu.DisplayMenu();
-
-            return Choice;
-            
+            int Choice = menu.DisplayMenu();
+            string selectedItem = keyMenuItem[Choice];
+            return selectedItem;
         }
-        private bool CheckAnswer(Format question, string userAnswer)
+        private bool CheckAnswer(Format question, string selectedItem)
         {
-            if (question.correct_answers.TryGetValue($"answer_{userAnswer}_correct", out string isCorrect))
+            if (question.correct_answers.TryGetValue($"{selectedItem}_correct", out string isCorrect))
             {
                 return isCorrect == "true";
             }

@@ -27,8 +27,8 @@ namespace Improved_ApiQuiz
             Console.SetCursorPosition(0, 0);
             
 
-            string difficulty = menu.DisplayMenu();
-
+            int Choice = menu.DisplayMenu();
+            string difficulty = customMenuItems[Choice];
             return difficulty;
         }
 
@@ -39,9 +39,10 @@ namespace Improved_ApiQuiz
 
             Console.CursorVisible = false;
 
-            
 
-            string limit = menu.DisplayMenu();
+
+            int Choice = menu.DisplayMenu();
+            string limit = customMenuItems[Choice];
 
             return limit;
         }
@@ -52,8 +53,9 @@ namespace Improved_ApiQuiz
             menu.SetMenuItems(customMenuItems);
 
             Console.CursorVisible = false;
-            
-            string category = menu.DisplayMenu();
+
+            int Choice = menu.DisplayMenu();
+            string category = customMenuItems[Choice];
 
             return category;
         }
